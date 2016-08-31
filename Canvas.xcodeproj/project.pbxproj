@@ -1,0 +1,469 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ED221B311D5F5F1B000C2A28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B301D5F5F1B000C2A28 /* AppDelegate.swift */; };
+		ED221B331D5F5F1B000C2A28 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B321D5F5F1B000C2A28 /* ViewController.swift */; };
+		ED221B361D5F5F1B000C2A28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED221B341D5F5F1B000C2A28 /* Main.storyboard */; };
+		ED221B381D5F5F1B000C2A28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED221B371D5F5F1B000C2A28 /* Assets.xcassets */; };
+		ED221B3B1D5F5F1B000C2A28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED221B391D5F5F1B000C2A28 /* LaunchScreen.storyboard */; };
+		ED221B4A1D5F5F63000C2A28 /* Picasso.h in Headers */ = {isa = PBXBuildFile; fileRef = ED221B491D5F5F63000C2A28 /* Picasso.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED221B4E1D5F5F63000C2A28 /* Picasso.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED221B471D5F5F63000C2A28 /* Picasso.framework */; };
+		ED221B4F1D5F5F63000C2A28 /* Picasso.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ED221B471D5F5F63000C2A28 /* Picasso.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ED221B571D5F6387000C2A28 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B561D5F6387000C2A28 /* Canvas.swift */; };
+		ED221B591D5F6A27000C2A28 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B581D5F6A27000C2A28 /* Renderer.swift */; };
+		ED221B5D1D5F6FCC000C2A28 /* CoreGraphicsRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B5C1D5F6FCC000C2A28 /* CoreGraphicsRenderer.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ED221B4C1D5F5F63000C2A28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED221B251D5F5F1B000C2A28 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED221B461D5F5F63000C2A28;
+			remoteInfo = Picasso;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ED221B531D5F5F63000C2A28 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				ED221B4F1D5F5F63000C2A28 /* Picasso.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		ED221B2D1D5F5F1B000C2A28 /* Canvas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Canvas.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED221B301D5F5F1B000C2A28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ED221B321D5F5F1B000C2A28 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		ED221B351D5F5F1B000C2A28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		ED221B371D5F5F1B000C2A28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ED221B3A1D5F5F1B000C2A28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		ED221B3C1D5F5F1B000C2A28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED221B471D5F5F63000C2A28 /* Picasso.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Picasso.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED221B491D5F5F63000C2A28 /* Picasso.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Picasso.h; sourceTree = "<group>"; };
+		ED221B4B1D5F5F63000C2A28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED221B561D5F6387000C2A28 /* Canvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
+		ED221B581D5F6A27000C2A28 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		ED221B5C1D5F6FCC000C2A28 /* CoreGraphicsRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphicsRenderer.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ED221B2A1D5F5F1B000C2A28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED221B4E1D5F5F63000C2A28 /* Picasso.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED221B431D5F5F63000C2A28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ED221B241D5F5F1B000C2A28 = {
+			isa = PBXGroup;
+			children = (
+				ED221B2F1D5F5F1B000C2A28 /* Canvas */,
+				ED221B481D5F5F63000C2A28 /* Picasso */,
+				ED221B2E1D5F5F1B000C2A28 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ED221B2E1D5F5F1B000C2A28 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ED221B2D1D5F5F1B000C2A28 /* Canvas.app */,
+				ED221B471D5F5F63000C2A28 /* Picasso.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ED221B2F1D5F5F1B000C2A28 /* Canvas */ = {
+			isa = PBXGroup;
+			children = (
+				ED221B301D5F5F1B000C2A28 /* AppDelegate.swift */,
+				ED221B321D5F5F1B000C2A28 /* ViewController.swift */,
+				ED221B341D5F5F1B000C2A28 /* Main.storyboard */,
+				ED221B371D5F5F1B000C2A28 /* Assets.xcassets */,
+				ED221B391D5F5F1B000C2A28 /* LaunchScreen.storyboard */,
+				ED221B3C1D5F5F1B000C2A28 /* Info.plist */,
+			);
+			path = Canvas;
+			sourceTree = "<group>";
+		};
+		ED221B481D5F5F63000C2A28 /* Picasso */ = {
+			isa = PBXGroup;
+			children = (
+				ED221B491D5F5F63000C2A28 /* Picasso.h */,
+				ED221B561D5F6387000C2A28 /* Canvas.swift */,
+				ED221B581D5F6A27000C2A28 /* Renderer.swift */,
+				ED221B5C1D5F6FCC000C2A28 /* CoreGraphicsRenderer.swift */,
+				ED221B4B1D5F5F63000C2A28 /* Info.plist */,
+			);
+			path = Picasso;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		ED221B441D5F5F63000C2A28 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED221B4A1D5F5F63000C2A28 /* Picasso.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		ED221B2C1D5F5F1B000C2A28 /* Canvas */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED221B3F1D5F5F1B000C2A28 /* Build configuration list for PBXNativeTarget "Canvas" */;
+			buildPhases = (
+				ED221B291D5F5F1B000C2A28 /* Sources */,
+				ED221B2A1D5F5F1B000C2A28 /* Frameworks */,
+				ED221B2B1D5F5F1B000C2A28 /* Resources */,
+				ED221B531D5F5F63000C2A28 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ED221B4D1D5F5F63000C2A28 /* PBXTargetDependency */,
+			);
+			name = Canvas;
+			productName = Canvas;
+			productReference = ED221B2D1D5F5F1B000C2A28 /* Canvas.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ED221B461D5F5F63000C2A28 /* Picasso */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED221B521D5F5F63000C2A28 /* Build configuration list for PBXNativeTarget "Picasso" */;
+			buildPhases = (
+				ED221B421D5F5F63000C2A28 /* Sources */,
+				ED221B431D5F5F63000C2A28 /* Frameworks */,
+				ED221B441D5F5F63000C2A28 /* Headers */,
+				ED221B451D5F5F63000C2A28 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Picasso;
+			productName = Picasso;
+			productReference = ED221B471D5F5F63000C2A28 /* Picasso.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ED221B251D5F5F1B000C2A28 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Picasso;
+				TargetAttributes = {
+					ED221B2C1D5F5F1B000C2A28 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					ED221B461D5F5F63000C2A28 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = ED221B281D5F5F1B000C2A28 /* Build configuration list for PBXProject "Canvas" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ED221B241D5F5F1B000C2A28;
+			productRefGroup = ED221B2E1D5F5F1B000C2A28 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ED221B2C1D5F5F1B000C2A28 /* Canvas */,
+				ED221B461D5F5F63000C2A28 /* Picasso */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ED221B2B1D5F5F1B000C2A28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED221B3B1D5F5F1B000C2A28 /* LaunchScreen.storyboard in Resources */,
+				ED221B381D5F5F1B000C2A28 /* Assets.xcassets in Resources */,
+				ED221B361D5F5F1B000C2A28 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED221B451D5F5F63000C2A28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ED221B291D5F5F1B000C2A28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED221B331D5F5F1B000C2A28 /* ViewController.swift in Sources */,
+				ED221B311D5F5F1B000C2A28 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED221B421D5F5F63000C2A28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED221B591D5F6A27000C2A28 /* Renderer.swift in Sources */,
+				ED221B5D1D5F6FCC000C2A28 /* CoreGraphicsRenderer.swift in Sources */,
+				ED221B571D5F6387000C2A28 /* Canvas.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ED221B4D1D5F5F63000C2A28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED221B461D5F5F63000C2A28 /* Picasso */;
+			targetProxy = ED221B4C1D5F5F63000C2A28 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		ED221B341D5F5F1B000C2A28 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED221B351D5F5F1B000C2A28 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		ED221B391D5F5F1B000C2A28 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED221B3A1D5F5F1B000C2A28 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		ED221B3D1D5F5F1B000C2A28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ED221B3E1D5F5F1B000C2A28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ED221B401D5F5F1B000C2A28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = Canvas/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = top.limon.Canvas;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		ED221B411D5F5F1B000C2A28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = Canvas/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = top.limon.Canvas;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		ED221B501D5F5F63000C2A28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Picasso/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = top.limon.Picasso;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		ED221B511D5F5F63000C2A28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Picasso/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = top.limon.Picasso;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ED221B281D5F5F1B000C2A28 /* Build configuration list for PBXProject "Canvas" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED221B3D1D5F5F1B000C2A28 /* Debug */,
+				ED221B3E1D5F5F1B000C2A28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED221B3F1D5F5F1B000C2A28 /* Build configuration list for PBXNativeTarget "Canvas" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED221B401D5F5F1B000C2A28 /* Debug */,
+				ED221B411D5F5F1B000C2A28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED221B521D5F5F63000C2A28 /* Build configuration list for PBXNativeTarget "Picasso" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED221B501D5F5F63000C2A28 /* Debug */,
+				ED221B511D5F5F63000C2A28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ED221B251D5F5F1B000C2A28 /* Project object */;
+}
