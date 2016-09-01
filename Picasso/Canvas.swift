@@ -16,6 +16,7 @@ public enum CanvasContentMode {
     case Center
 }
 
+@IBDesignable
 public class Canvas: UIView {
 
     public var renderer: Renderer = Canvas.suggestedRenderer() {
@@ -26,7 +27,7 @@ public class Canvas: UIView {
         }
     }
 
-    public var image: CIImage = CIImage() {
+    public var image: CIImage? {
         didSet {
             guard oldValue != image else { return }
             setNeedsLayout()
@@ -41,7 +42,14 @@ public class Canvas: UIView {
     }
 
     public class func suggestedRenderer() -> Renderer {
-        return CoreGraphicsRenderer()!
+
+        if #available(iOS 9.0, *) {
+            if let defaultDevice = MTLCreateSystemDefaultDevice(), metalRenderer = MetalRenderer(device: defaultDevice) {
+                return metalRenderer
+            }
+        }
+
+        return GLKRenderer(GLContext: EAGLContext(API: .OpenGLES2))
     }
 
     private let screenScaleFactor = UIScreen.mainScreen().nativeScale
@@ -67,7 +75,9 @@ public class Canvas: UIView {
     override public func layoutSubviews() {
         super.layoutSubviews()
 
-        let imageSize = image.extent.size
+        guard let unwrappedImage = image else { return }
+
+        let imageSize = unwrappedImage.extent.size
 
         if (CGSizeEqualToSize(imageSize, CGSizeZero) || CGSizeEqualToSize(bounds.size, CGSizeZero)) {
             return
@@ -93,7 +103,32 @@ public class Canvas: UIView {
     }
 
     private func updateContent() {
+        guard let unwrappedImage = image else { return }
+        let scaledImage = scaleImageForDisplay(unwrappedImage)
+        renderer.renderImage(scaledImage)
+    }
 
+    private func scaleImageForDisplay(image: CIImage) -> CIImage {
+
+        let scaledBounds = CGRectApplyAffineTransform(self.bounds, CGAffineTransformMakeScale(screenScaleFactor, screenScaleFactor))
+        let imageSize = image.extent.size
+
+        switch canvasContentMode {
+        case .ScaleAspectFill:
+            let targetRect = makeRectWithAspectRatioFillRect(imageSize, boundingRect: scaledBounds)
+            let horizontalScale = targetRect.size.width / imageSize.width
+            let verticalScale = targetRect.size.height / imageSize.height
+            return image.imageByApplyingTransform(CGAffineTransformMakeScale(horizontalScale, verticalScale))
+
+        case .ScaleAspectFit:
+            let targetRect = makeRectWithAspectRatioInsideRect(imageSize, boundingRect: scaledBounds)
+            let horizontalScale = targetRect.size.width / imageSize.width
+            let verticalScale = targetRect.size.height / imageSize.height
+            return image.imageByApplyingTransform(CGAffineTransformMakeScale(horizontalScale, verticalScale))
+
+        default:
+            return image
+        }
     }
 
 }

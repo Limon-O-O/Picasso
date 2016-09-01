@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol Renderer {
-    var view: UIImageView { get }
+    var view: UIView { get }
     var context: CIContext { get }
     func renderImage(image: CIImage)
 }

@@ -10,11 +10,13 @@ import UIKit
 
 struct CoreGraphicsRenderer: Renderer {
 
-    let view: UIImageView
+    let view: UIView
 
     let context: CIContext
 
-    init?() {
+    private var image: CIImage?
+
+    init() {
 
         let colorSpace: CGColorSpace?
 
@@ -24,18 +26,15 @@ struct CoreGraphicsRenderer: Renderer {
             colorSpace = CGColorSpaceCreateDeviceRGB()
         }
 
-        guard let unwrappedColorSpace = colorSpace else { return nil }
-
         view = UIImageView(frame: CGRectZero)
 
-        let options = [kCIContextWorkingColorSpace: unwrappedColorSpace]
+        let options: [String: AnyObject]? = colorSpace != nil ? [kCIContextWorkingColorSpace: colorSpace!] : nil
         context = CIContext(options: options)
     }
 
     func renderImage(image: CIImage) {
         let outputImage = context.createCGImage(image, fromRect: image.extent)
-//        view.layer.contents = outputImage
-        view.image = UIImage(CGImage: outputImage)
+        (view as? UIImageView)?.image = UIImage(CGImage: outputImage)
     }
 
 }

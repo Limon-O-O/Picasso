@@ -7,19 +7,19 @@
 //
 
 import UIKit
+import Picasso
 
 class ViewController: UIViewController {
 
+    @IBOutlet private weak var canvas: Canvas!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        canvas.renderer = Canvas.suggestedRenderer()
+        canvas.canvasContentMode = .Default
+
+        canvas.image = CIImage(CGImage: UIImage(named: "StillLife")!.CGImage!)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
