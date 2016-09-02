@@ -44,7 +44,7 @@ public class Canvas: UIView {
     public class func suggestedRenderer() -> Renderable {
 
         if #available(iOS 9.0, *) {
-            if let defaultDevice = MTLCreateSystemDefaultDevice(), metalRenderer = MetalRenderer(device: defaultDevice) {
+            if let metalRenderer = MetalRenderer() {
                 return metalRenderer
             }
         }

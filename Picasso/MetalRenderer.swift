@@ -22,7 +22,9 @@ class MetalRenderer: NSObject, Renderable {
 
     private let colorSpace: CGColorSpace
 
-    init?(device: MTLDevice) {
+    init?() {
+
+        guard let defaultDevice = MTLCreateSystemDefaultDevice() else { return nil }
 
         let colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB) ?? CGColorSpaceCreateDeviceRGB()
 
@@ -81,6 +83,15 @@ extension MetalRenderer: MTKViewDelegate {
 
 #else
 
-class MetalRenderer {}
+class MetalRenderer: Renderable {
+
+    let view: UIView = UIView()
+
+    let context: CIContext = CIContext()
+
+    init?() {}
+
+    func renderImage(image: CIImage) {}
+}
     
 #endif
