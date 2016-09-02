@@ -17,7 +17,6 @@
 		ED221B4F1D5F5F63000C2A28 /* Picasso.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ED221B471D5F5F63000C2A28 /* Picasso.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED221B571D5F6387000C2A28 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B561D5F6387000C2A28 /* Canvas.swift */; };
 		ED221B591D5F6A27000C2A28 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B581D5F6A27000C2A28 /* Renderer.swift */; };
-		ED221B5D1D5F6FCC000C2A28 /* CoreGraphicsRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B5C1D5F6FCC000C2A28 /* CoreGraphicsRenderer.swift */; };
 		ED6BC55D1D77D8A100B93D49 /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BC55C1D77D8A100B93D49 /* MetalRenderer.swift */; };
 		ED6BC55F1D77E76F00B93D49 /* GLKRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BC55E1D77E76F00B93D49 /* GLKRenderer.swift */; };
 /* End PBXBuildFile section */
@@ -59,7 +58,6 @@
 		ED221B4B1D5F5F63000C2A28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED221B561D5F6387000C2A28 /* Canvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		ED221B581D5F6A27000C2A28 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
-		ED221B5C1D5F6FCC000C2A28 /* CoreGraphicsRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphicsRenderer.swift; sourceTree = "<group>"; };
 		ED6BC55C1D77D8A100B93D49 /* MetalRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
 		ED6BC55E1D77E76F00B93D49 /* GLKRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLKRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,7 +120,6 @@
 				ED221B581D5F6A27000C2A28 /* Renderer.swift */,
 				ED6BC55C1D77D8A100B93D49 /* MetalRenderer.swift */,
 				ED6BC55E1D77E76F00B93D49 /* GLKRenderer.swift */,
-				ED221B5C1D5F6FCC000C2A28 /* CoreGraphicsRenderer.swift */,
 				ED221B4B1D5F5F63000C2A28 /* Info.plist */,
 			);
 			path = Picasso;
@@ -252,7 +249,6 @@
 			files = (
 				ED6BC55D1D77D8A100B93D49 /* MetalRenderer.swift in Sources */,
 				ED221B591D5F6A27000C2A28 /* Renderer.swift in Sources */,
-				ED221B5D1D5F6FCC000C2A28 /* CoreGraphicsRenderer.swift in Sources */,
 				ED6BC55F1D77E76F00B93D49 /* GLKRenderer.swift in Sources */,
 				ED221B571D5F6387000C2A28 /* Canvas.swift in Sources */,
 			);
