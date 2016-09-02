@@ -1,5 +1,5 @@
 //
-//  Renderer.swift
+//  Renderable.swift
 //  Picasso
 //
 //  Created by Limon on 2016/8/13.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol Renderer {
+public protocol Renderable {
     var view: UIView { get }
     var context: CIContext { get }
     func renderImage(image: CIImage)

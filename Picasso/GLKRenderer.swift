@@ -8,7 +8,7 @@
 
 import GLKit
 
-class GLKRenderer: NSObject, Renderer {
+class GLKRenderer: NSObject, Renderable {
 
     let view: UIView
 

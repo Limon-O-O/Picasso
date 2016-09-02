@@ -19,7 +19,7 @@ public enum CanvasContentMode {
 @IBDesignable
 public class Canvas: UIView {
 
-    public var renderer: Renderer = Canvas.suggestedRenderer() {
+    public var renderer: Renderable = Canvas.suggestedRenderer() {
         didSet {
             oldValue.view.removeFromSuperview()
             renderer.view.frame = CGRectIntegral(bounds)
@@ -41,7 +41,7 @@ public class Canvas: UIView {
         }
     }
 
-    public class func suggestedRenderer() -> Renderer {
+    public class func suggestedRenderer() -> Renderable {
 
         if #available(iOS 9.0, *) {
             if let defaultDevice = MTLCreateSystemDefaultDevice(), metalRenderer = MetalRenderer(device: defaultDevice) {

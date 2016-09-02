@@ -10,7 +10,7 @@
 import MetalKit
 
 @available(iOS 9.0, *)
-class MetalRenderer: NSObject, Renderer {
+class MetalRenderer: NSObject, Renderable {
 
     let view: UIView
 

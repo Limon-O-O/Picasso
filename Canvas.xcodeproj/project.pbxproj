@@ -16,7 +16,7 @@
 		ED221B4E1D5F5F63000C2A28 /* Picasso.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED221B471D5F5F63000C2A28 /* Picasso.framework */; };
 		ED221B4F1D5F5F63000C2A28 /* Picasso.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ED221B471D5F5F63000C2A28 /* Picasso.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED221B571D5F6387000C2A28 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B561D5F6387000C2A28 /* Canvas.swift */; };
-		ED221B591D5F6A27000C2A28 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B581D5F6A27000C2A28 /* Renderer.swift */; };
+		ED221B591D5F6A27000C2A28 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED221B581D5F6A27000C2A28 /* Renderable.swift */; };
 		ED6BC55D1D77D8A100B93D49 /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BC55C1D77D8A100B93D49 /* MetalRenderer.swift */; };
 		ED6BC55F1D77E76F00B93D49 /* GLKRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BC55E1D77E76F00B93D49 /* GLKRenderer.swift */; };
 /* End PBXBuildFile section */
@@ -57,7 +57,7 @@
 		ED221B491D5F5F63000C2A28 /* Picasso.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Picasso.h; sourceTree = "<group>"; };
 		ED221B4B1D5F5F63000C2A28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED221B561D5F6387000C2A28 /* Canvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
-		ED221B581D5F6A27000C2A28 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		ED221B581D5F6A27000C2A28 /* Renderable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
 		ED6BC55C1D77D8A100B93D49 /* MetalRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
 		ED6BC55E1D77E76F00B93D49 /* GLKRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLKRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,7 +117,7 @@
 			children = (
 				ED221B491D5F5F63000C2A28 /* Picasso.h */,
 				ED221B561D5F6387000C2A28 /* Canvas.swift */,
-				ED221B581D5F6A27000C2A28 /* Renderer.swift */,
+				ED221B581D5F6A27000C2A28 /* Renderable.swift */,
 				ED6BC55C1D77D8A100B93D49 /* MetalRenderer.swift */,
 				ED6BC55E1D77E76F00B93D49 /* GLKRenderer.swift */,
 				ED221B4B1D5F5F63000C2A28 /* Info.plist */,
@@ -248,7 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED6BC55D1D77D8A100B93D49 /* MetalRenderer.swift in Sources */,
-				ED221B591D5F6A27000C2A28 /* Renderer.swift in Sources */,
+				ED221B591D5F6A27000C2A28 /* Renderable.swift in Sources */,
 				ED6BC55F1D77E76F00B93D49 /* GLKRenderer.swift in Sources */,
 				ED221B571D5F6387000C2A28 /* Canvas.swift in Sources */,
 			);
