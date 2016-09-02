@@ -44,9 +44,11 @@ public class Canvas: UIView {
     public class func suggestedRenderer() -> Renderable {
 
         if #available(iOS 9.0, *) {
-            if let metalRenderer = MetalRenderer() {
+            #if !(arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
+            if let defaultDevice = MTLCreateSystemDefaultDevice(), metalRenderer = MetalRenderer(device: defaultDevice) {
                 return metalRenderer
             }
+            #endif
         }
 
         return GLKRenderer(GLContext: EAGLContext(API: .OpenGLES2))
@@ -95,7 +97,7 @@ public class Canvas: UIView {
             let viewSize = CGSizeMake(imageSize.width/screenScaleFactor, imageSize.height/screenScaleFactor)
             renderer.view.frame = CGRectIntegral(CGRectMake((CGRectGetWidth(bounds) - viewSize.width)/2, (CGRectGetHeight(bounds) - viewSize.height)/2, viewSize.width, viewSize.height))
 
-        default:
+        case .Default:
             renderer.view.frame = CGRectIntegral(bounds)
         }
 
