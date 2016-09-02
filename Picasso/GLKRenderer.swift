@@ -31,6 +31,7 @@ class GLKRenderer: NSObject, Renderable {
 
         let view = GLKView(frame: CGRectZero, context: GLContext)
         view.contentScaleFactor = UIScreen.mainScreen().scale
+        view.enableSetNeedsDisplay = true
         self.view = view
 
         super.init()

@@ -19,13 +19,15 @@ public enum CanvasContentMode {
 @IBDesignable
 public class Canvas: UIView {
 
-    public var renderer: Renderable = Canvas.suggestedRenderer() {
-        didSet {
-            oldValue.view.removeFromSuperview()
-            renderer.view.frame = CGRectIntegral(bounds)
-            addSubview(renderer.view)
-        }
-    }
+    private lazy var renderer: Renderable =  {
+
+        let suggestedRenderer = Canvas.suggestedRenderer()
+        suggestedRenderer.view.frame = CGRectIntegral(self.bounds)
+        self.addSubview(suggestedRenderer.view)
+
+        return suggestedRenderer
+
+    }()
 
     public var image: CIImage? {
         didSet {
@@ -41,13 +43,13 @@ public class Canvas: UIView {
         }
     }
 
-    public class func suggestedRenderer() -> Renderable {
+    private class func suggestedRenderer() -> Renderable {
 
         if #available(iOS 9.0, *) {
             #if !(arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
-            if let defaultDevice = MTLCreateSystemDefaultDevice(), metalRenderer = MetalRenderer(device: defaultDevice) {
-                return metalRenderer
-            }
+                if let defaultDevice = MTLCreateSystemDefaultDevice(), metalRenderer = MetalRenderer(device: defaultDevice) {
+                    return metalRenderer
+                }
             #endif
         }
 
@@ -62,7 +64,6 @@ public class Canvas: UIView {
         let verticalRatio = boundingRect.size.height / aspectRatio.height
 
         let ratio = max(horizontalRatio, verticalRatio)
-        //ratio = MIN(horizontalRatio, verticalRatio)
 
         let newSize = CGSizeMake(aspectRatio.width * ratio, aspectRatio.height * ratio)
 
@@ -132,5 +133,4 @@ public class Canvas: UIView {
             return image
         }
     }
-
 }
