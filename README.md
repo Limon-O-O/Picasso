@@ -21,7 +21,7 @@ Swift 2.0
 ### CocoaPods
 
 ```ruby
-pod 'Picasso', '~> 0.1'
+pod 'Picasso', '~> 0.3'
 ```
 
 ### Carthage
