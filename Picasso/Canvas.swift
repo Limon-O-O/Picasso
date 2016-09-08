@@ -98,7 +98,7 @@ open class Canvas: UIView {
             let viewSize = CGSize(width: imageSize.width/screenScaleFactor, height: imageSize.height/screenScaleFactor)
             renderer.view.frame = CGRect(x: (bounds.width - viewSize.width)/2, y: (bounds.height - viewSize.height)/2, width: viewSize.width, height: viewSize.height).integral
 
-        case .default:
+        case .`default`:
             renderer.view.frame = bounds.integral
         }
 
