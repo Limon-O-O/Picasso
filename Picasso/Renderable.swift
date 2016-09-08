@@ -11,5 +11,5 @@ import UIKit
 public protocol Renderable {
     var view: UIView { get }
     var context: CIContext { get }
-    func renderImage(image: CIImage)
+    func renderImage(_ image: CIImage)
 }

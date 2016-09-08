@@ -10,33 +10,35 @@ import UIKit
 import AVFoundation.AVUtilities
 
 public enum CanvasContentMode {
-    case Default
-    case ScaleAspectFit
-    case ScaleAspectFill
-    case Center
+    case `default`
+    case scaleAspectFit
+    case scaleAspectFill
+    case center
 }
 
 @IBDesignable
-public class Canvas: UIView {
+open class Canvas: UIView {
+
+    private let screenScaleFactor = UIScreen.main.nativeScale
 
     private lazy var renderer: Renderable =  {
 
         let suggestedRenderer = Canvas.suggestedRenderer()
-        suggestedRenderer.view.frame = CGRectIntegral(self.bounds)
+        suggestedRenderer.view.frame = self.bounds.integral
         self.addSubview(suggestedRenderer.view)
 
         return suggestedRenderer
 
     }()
 
-    public var image: CIImage? {
+    open var image: CIImage? {
         didSet {
             guard oldValue != image else { return }
             setNeedsLayout()
         }
     }
 
-    public var canvasContentMode: CanvasContentMode = .Default {
+    open var canvasContentMode: CanvasContentMode = .default {
         didSet {
             guard oldValue != canvasContentMode else { return }
             setNeedsLayout()
@@ -47,59 +49,57 @@ public class Canvas: UIView {
 
         if #available(iOS 9.0, *) {
             #if !(arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
-                if let defaultDevice = MTLCreateSystemDefaultDevice(), metalRenderer = MetalRenderer(device: defaultDevice) {
+                if let defaultDevice = MTLCreateSystemDefaultDevice(), let metalRenderer = MetalRenderer(device: defaultDevice) {
                     return metalRenderer
                 }
             #endif
         }
 
-        return GLKRenderer(GLContext: EAGLContext(API: .OpenGLES2))
+        return GLKRenderer(GLContext: EAGLContext(api: .openGLES2))
     }
 
-    private let screenScaleFactor = UIScreen.mainScreen().nativeScale
-
-    private func makeRectWithAspectRatioFillRect(aspectRatio: CGSize, boundingRect: CGRect) -> CGRect {
+    private func makeRectWithAspectRatioFillRect(_ aspectRatio: CGSize, boundingRect: CGRect) -> CGRect {
 
         let horizontalRatio = boundingRect.size.width / aspectRatio.width
         let verticalRatio = boundingRect.size.height / aspectRatio.height
 
         let ratio = max(horizontalRatio, verticalRatio)
 
-        let newSize = CGSizeMake(aspectRatio.width * ratio, aspectRatio.height * ratio)
+        let newSize = CGSize(width: aspectRatio.width * ratio, height: aspectRatio.height * ratio)
 
-        let rect = CGRectMake(boundingRect.origin.x + (boundingRect.size.width - newSize.width)/2, boundingRect.origin.y + (boundingRect.size.height - newSize.height)/2, newSize.width, newSize.height)
-        return CGRectIntegral(rect)
+        let rect = CGRect(x: boundingRect.origin.x + (boundingRect.size.width - newSize.width)/2, y: boundingRect.origin.y + (boundingRect.size.height - newSize.height)/2, width: newSize.width, height: newSize.height)
+        return rect.integral
     }
 
-    private func makeRectWithAspectRatioInsideRect(aspectRatio: CGSize, boundingRect: CGRect) -> CGRect {
-        return AVMakeRectWithAspectRatioInsideRect(aspectRatio, boundingRect)
+    private func makeRectWithAspectRatioInsideRect(_ aspectRatio: CGSize, boundingRect: CGRect) -> CGRect {
+        return AVMakeRect(aspectRatio: aspectRatio, insideRect: boundingRect)
     }
 
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
 
         guard let unwrappedImage = image else { return }
 
         let imageSize = unwrappedImage.extent.size
 
-        if (CGSizeEqualToSize(imageSize, CGSizeZero) || CGSizeEqualToSize(bounds.size, CGSizeZero)) {
+        if (imageSize.equalTo(CGSize.zero) || bounds.size.equalTo(CGSize.zero)) {
             return
         }
 
         switch canvasContentMode {
 
-        case .ScaleAspectFill:
+        case .scaleAspectFill:
             renderer.view.frame = makeRectWithAspectRatioFillRect(imageSize, boundingRect: bounds)
 
-        case .ScaleAspectFit:
+        case .scaleAspectFit:
             renderer.view.frame = makeRectWithAspectRatioInsideRect(imageSize, boundingRect: bounds)
 
-        case .Center:
-            let viewSize = CGSizeMake(imageSize.width/screenScaleFactor, imageSize.height/screenScaleFactor)
-            renderer.view.frame = CGRectIntegral(CGRectMake((CGRectGetWidth(bounds) - viewSize.width)/2, (CGRectGetHeight(bounds) - viewSize.height)/2, viewSize.width, viewSize.height))
+        case .center:
+            let viewSize = CGSize(width: imageSize.width/screenScaleFactor, height: imageSize.height/screenScaleFactor)
+            renderer.view.frame = CGRect(x: (bounds.width - viewSize.width)/2, y: (bounds.height - viewSize.height)/2, width: viewSize.width, height: viewSize.height).integral
 
-        case .Default:
-            renderer.view.frame = CGRectIntegral(bounds)
+        case .default:
+            renderer.view.frame = bounds.integral
         }
 
         updateContent()
@@ -111,23 +111,23 @@ public class Canvas: UIView {
         renderer.renderImage(scaledImage)
     }
 
-    private func scaleImageForDisplay(image: CIImage) -> CIImage {
+    private func scaleImageForDisplay(_ image: CIImage) -> CIImage {
 
-        let scaledBounds = CGRectApplyAffineTransform(self.bounds, CGAffineTransformMakeScale(screenScaleFactor, screenScaleFactor))
+        let scaledBounds = self.bounds.applying(CGAffineTransform(scaleX: screenScaleFactor, y: screenScaleFactor))
         let imageSize = image.extent.size
 
         switch canvasContentMode {
-        case .ScaleAspectFill:
+        case .scaleAspectFill:
             let targetRect = makeRectWithAspectRatioFillRect(imageSize, boundingRect: scaledBounds)
             let horizontalScale = targetRect.size.width / imageSize.width
             let verticalScale = targetRect.size.height / imageSize.height
-            return image.imageByApplyingTransform(CGAffineTransformMakeScale(horizontalScale, verticalScale))
+            return image.applying(CGAffineTransform(scaleX: horizontalScale, y: verticalScale))
 
-        case .ScaleAspectFit:
+        case .scaleAspectFit:
             let targetRect = makeRectWithAspectRatioInsideRect(imageSize, boundingRect: scaledBounds)
             let horizontalScale = targetRect.size.width / imageSize.width
             let verticalScale = targetRect.size.height / imageSize.height
-            return image.imageByApplyingTransform(CGAffineTransformMakeScale(horizontalScale, verticalScale))
+            return image.applying(CGAffineTransform(scaleX: horizontalScale, y: verticalScale))
 
         default:
             return image

@@ -16,30 +16,26 @@ class MetalRenderer: NSObject, Renderable {
 
     let context: CIContext
 
-    private let commandQueue: MTLCommandQueue
+    fileprivate let commandQueue: MTLCommandQueue
 
     private var image: CIImage?
 
-    private let colorSpace: CGColorSpace
+    fileprivate let colorSpace: CGColorSpace
 
     init?(device: MTLDevice) {
 
-        let colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB) ?? CGColorSpaceCreateDeviceRGB()
+        self.colorSpace = CGColorSpace(name: CGColorSpace.sRGB) ?? CGColorSpaceCreateDeviceRGB()
 
-        guard let unwrappedColorSpace = colorSpace else { return nil }
+        let options = [kCIContextWorkingColorSpace: colorSpace]
 
-        let options = [kCIContextWorkingColorSpace: unwrappedColorSpace]
+        self.context = CIContext(mtlDevice: device, options: options)
 
-        self.context = CIContext(MTLDevice: device, options: options)
+        self.commandQueue = device.makeCommandQueue()
 
-        self.commandQueue = device.newCommandQueue()
-
-        self.colorSpace = unwrappedColorSpace
-
-        let metalView = MTKView(frame: CGRectZero, device: device)
+        let metalView = MTKView(frame: CGRect.zero, device: device)
         metalView.device = device
         metalView.clearColor = MTLClearColorMake(0, 0, 0, 0)
-        metalView.backgroundColor = UIColor.clearColor()
+        metalView.backgroundColor = UIColor.clear
         metalView.enableSetNeedsDisplay = true
 
         // Allow to access to `currentDrawable.texture` write mode.
@@ -52,7 +48,7 @@ class MetalRenderer: NSObject, Renderable {
         metalView.delegate = self
     }
 
-    func renderImage(image: CIImage) {
+    func renderImage(_ image: CIImage) {
         self.image = image
         view.setNeedsDisplay()
     }
@@ -61,20 +57,20 @@ class MetalRenderer: NSObject, Renderable {
 @available(iOS 9.0, *)
 extension MetalRenderer: MTKViewDelegate {
 
-    func mtkView(view: MTKView, drawableSizeWillChange size: CGSize) {
+    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         view.setNeedsDisplay()
     }
 
-    func drawInMTKView(view: MTKView) {
+    func draw(in view: MTKView) {
 
-        guard let currentDrawable = view.currentDrawable, unwrappedImage = image else { return }
+        guard let currentDrawable = view.currentDrawable, let unwrappedImage = image else { return }
 
-        let commandBuffer = commandQueue.commandBuffer()
+        let commandBuffer = commandQueue.makeCommandBuffer()
 
         let outputTexture = currentDrawable.texture
 
-        context.render(unwrappedImage, toMTLTexture: outputTexture, commandBuffer: commandBuffer, bounds: unwrappedImage.extent, colorSpace: colorSpace)
-        commandBuffer.presentDrawable(currentDrawable)
+        context.render(unwrappedImage, to: outputTexture, commandBuffer: commandBuffer, bounds: unwrappedImage.extent, colorSpace: colorSpace)
+        commandBuffer.present(currentDrawable)
         commandBuffer.commit()
     }
 }

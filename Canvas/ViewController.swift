@@ -15,8 +15,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        canvas.canvasContentMode = .Default
-        canvas.image = CIImage(CGImage: UIImage(named: "StillLife")!.CGImage!)
+        canvas.canvasContentMode = .default
+        canvas.image = CIImage(cgImage: UIImage(named: "StillLife")!.cgImage!)
     }
 }
 

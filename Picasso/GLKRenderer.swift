@@ -14,23 +14,23 @@ class GLKRenderer: NSObject, Renderable {
 
     let context: CIContext
 
-    private var image: CIImage?
+    fileprivate var image: CIImage?
 
     init(GLContext: EAGLContext) {
 
-        let colorSpace: CGColorSpace?
+        let colorSpace: CGColorSpace
 
         if #available(iOS 9.0, *) {
-            colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB)
+            colorSpace = CGColorSpace(name: CGColorSpace.sRGB) ?? CGColorSpaceCreateDeviceRGB()
         } else {
             colorSpace = CGColorSpaceCreateDeviceRGB()
         }
 
-        let options: [String: AnyObject]? = colorSpace != nil ? [kCIContextWorkingColorSpace: colorSpace!] : nil
-        context = CIContext(EAGLContext: GLContext, options: options)
+        let options: [String: AnyObject] = [kCIContextWorkingColorSpace: colorSpace]
+        context = CIContext(eaglContext: GLContext, options: options)
 
-        let view = GLKView(frame: CGRectZero, context: GLContext)
-        view.contentScaleFactor = UIScreen.mainScreen().scale
+        let view = GLKView(frame: CGRect.zero, context: GLContext)
+        view.contentScaleFactor = UIScreen.main.scale
         view.enableSetNeedsDisplay = true
         self.view = view
 
@@ -39,7 +39,7 @@ class GLKRenderer: NSObject, Renderable {
         view.delegate = self
     }
 
-    func renderImage(image: CIImage) {
+    func renderImage(_ image: CIImage) {
         self.image = image
         view.setNeedsDisplay()
     }
@@ -47,14 +47,14 @@ class GLKRenderer: NSObject, Renderable {
 
 extension GLKRenderer: GLKViewDelegate {
 
-    func glkView(view: GLKView, drawInRect rect: CGRect) {
+    func glkView(_ view: GLKView, drawIn rect: CGRect) {
 
         guard let unwrappedImage = image else { return }
 
         glClearColor(0, 0, 0, 0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
 
-        let inRect = CGRect(origin: CGPointZero, size: CGSizeApplyAffineTransform(rect.size, CGAffineTransformMakeScale(view.contentScaleFactor, view.contentScaleFactor)))
-        context.drawImage(unwrappedImage, inRect: inRect, fromRect: unwrappedImage.extent)
+        let inRect = CGRect(origin: CGPoint.zero, size: rect.size.applying(CGAffineTransform(scaleX: view.contentScaleFactor, y: view.contentScaleFactor)))
+        context.draw(unwrappedImage, in: inRect, from: unwrappedImage.extent)
     }
 }
