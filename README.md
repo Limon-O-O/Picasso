@@ -14,14 +14,14 @@ Picasso is [YUCIImageView](https://github.com/YuAo/YUCIImageView) in Swift.
 
 iOS 8.0
 
-Swift 2.0
+Swift 3.0
 
 ## Installation
 
 ### CocoaPods
 
 ```ruby
-pod 'Picasso', '~> 0.3'
+pod 'Picasso', '~> 0.4'
 ```
 
 ### Carthage
