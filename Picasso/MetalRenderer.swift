@@ -18,7 +18,7 @@ class MetalRenderer: NSObject, Renderable {
 
     fileprivate let commandQueue: MTLCommandQueue
 
-    private var image: CIImage?
+    fileprivate var image: CIImage?
 
     fileprivate let colorSpace: CGColorSpace
 
