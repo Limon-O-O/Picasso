@@ -21,7 +21,7 @@ Swift 3.0
 ### CocoaPods
 
 ```ruby
-pod 'Picasso', '~> 0.4'
+pod 'Picasso', '~> 0.4.1'
 ```
 
 ### Carthage
