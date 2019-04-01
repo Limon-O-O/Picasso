@@ -26,7 +26,7 @@ class GLKRenderer: NSObject, Renderable {
             colorSpace = CGColorSpaceCreateDeviceRGB()
         }
 
-        let options: [String: AnyObject] = [kCIContextWorkingColorSpace: colorSpace]
+        let options: [CIContextOption: Any] = [CIContextOption.workingColorSpace: colorSpace]
         context = CIContext(eaglContext: GLContext, options: options)
 
         let view = GLKView(frame: CGRect.zero, context: GLContext)

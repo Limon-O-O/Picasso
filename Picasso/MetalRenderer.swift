@@ -26,11 +26,11 @@ class MetalRenderer: NSObject, Renderable {
 
         self.colorSpace = CGColorSpace(name: CGColorSpace.sRGB) ?? CGColorSpaceCreateDeviceRGB()
 
-        let options = [kCIContextWorkingColorSpace: colorSpace]
+        let options = [CIContextOption.workingColorSpace: colorSpace]
 
         self.context = CIContext(mtlDevice: device, options: options)
 
-        self.commandQueue = device.makeCommandQueue()
+        self.commandQueue = device.makeCommandQueue()!
 
         let metalView = MTKView(frame: CGRect.zero, device: device)
         metalView.device = device
@@ -63,9 +63,10 @@ extension MetalRenderer: MTKViewDelegate {
 
     func draw(in view: MTKView) {
 
-        guard let currentDrawable = view.currentDrawable, let unwrappedImage = image else { return }
-
-        let commandBuffer = commandQueue.makeCommandBuffer()
+        guard
+            let currentDrawable = view.currentDrawable,
+            let unwrappedImage = image,
+            let commandBuffer = commandQueue.makeCommandBuffer() else { return }
 
         let outputTexture = currentDrawable.texture
 

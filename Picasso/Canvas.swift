@@ -55,7 +55,7 @@ open class Canvas: UIView {
             #endif
         }
 
-        return GLKRenderer(GLContext: EAGLContext(api: .openGLES2))
+        return GLKRenderer(GLContext: EAGLContext(api: .openGLES2)!)
     }
 
     private func makeRectWithAspectRatioFillRect(_ aspectRatio: CGSize, boundingRect: CGRect) -> CGRect {
@@ -121,13 +121,13 @@ open class Canvas: UIView {
             let targetRect = makeRectWithAspectRatioFillRect(imageSize, boundingRect: scaledBounds)
             let horizontalScale = targetRect.size.width / imageSize.width
             let verticalScale = targetRect.size.height / imageSize.height
-            return image.applying(CGAffineTransform(scaleX: horizontalScale, y: verticalScale))
+            return image.transformed(by: CGAffineTransform(scaleX: horizontalScale, y: verticalScale))
 
         case .scaleAspectFit:
             let targetRect = makeRectWithAspectRatioInsideRect(imageSize, boundingRect: scaledBounds)
             let horizontalScale = targetRect.size.width / imageSize.width
             let verticalScale = targetRect.size.height / imageSize.height
-            return image.applying(CGAffineTransform(scaleX: horizontalScale, y: verticalScale))
+            return image.transformed(by: CGAffineTransform(scaleX: horizontalScale, y: verticalScale))
 
         default:
             return image
