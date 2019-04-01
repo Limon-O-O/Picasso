@@ -21,5 +21,6 @@ Pod::Spec.new do |s|
   s.source          = { :git => "https://github.com/Limon-O-O/Picasso.git", :tag => s.version }
   s.source_files    = "Picasso/*.swift"
   s.requires_arc    = true
+  s.swift_version= '4.2'
 
 end
