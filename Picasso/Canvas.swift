@@ -47,13 +47,11 @@ open class Canvas: UIView {
 
     private class func suggestedRenderer() -> Renderable {
 
-        if #available(iOS 9.0, *) {
-            #if !(arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
-                if let defaultDevice = MTLCreateSystemDefaultDevice(), let metalRenderer = MetalRenderer(device: defaultDevice) {
-                    return metalRenderer
-                }
-            #endif
+        #if !(arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
+        if let defaultDevice = MTLCreateSystemDefaultDevice(), let metalRenderer = MetalRenderer(device: defaultDevice) {
+            return metalRenderer
         }
+        #endif
 
         return GLKRenderer(GLContext: EAGLContext(api: .openGLES2)!)
     }

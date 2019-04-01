@@ -9,7 +9,6 @@
 #if !(arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
 import MetalKit
 
-@available(iOS 9.0, *)
 class MetalRenderer: NSObject, Renderable {
 
     let view: UIView
@@ -54,7 +53,6 @@ class MetalRenderer: NSObject, Renderable {
     }
 }
 
-@available(iOS 9.0, *)
 extension MetalRenderer: MTKViewDelegate {
 
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {

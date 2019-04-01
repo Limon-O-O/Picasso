@@ -18,13 +18,7 @@ class GLKRenderer: NSObject, Renderable {
 
     init(GLContext: EAGLContext) {
 
-        let colorSpace: CGColorSpace
-
-        if #available(iOS 9.0, *) {
-            colorSpace = CGColorSpace(name: CGColorSpace.sRGB) ?? CGColorSpaceCreateDeviceRGB()
-        } else {
-            colorSpace = CGColorSpaceCreateDeviceRGB()
-        }
+        let colorSpace: CGColorSpace = CGColorSpace(name: CGColorSpace.sRGB) ?? CGColorSpaceCreateDeviceRGB()
 
         let options: [CIContextOption: Any] = [CIContextOption.workingColorSpace: colorSpace]
         context = CIContext(eaglContext: GLContext, options: options)
