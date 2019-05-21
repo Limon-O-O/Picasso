@@ -10,6 +10,15 @@ import UIKit
 
 public protocol Renderable {
     var view: UIView { get }
-    var context: CIContext { get }
+
     func renderImage(_ image: CIImage)
+
+    func renderPixelBuffer(_ pixelBuffer: CVPixelBuffer)
+}
+
+extension Renderable {
+
+    public func renderImage(_ image: CIImage) {}
+
+    public func renderPixelBuffer(_ pixelBuffer: CVPixelBuffer) {}
 }

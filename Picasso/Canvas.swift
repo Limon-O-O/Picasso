@@ -16,25 +16,34 @@ public enum CanvasContentMode {
     case center
 }
 
-@IBDesignable
 open class Canvas: UIView {
 
     private let screenScaleFactor = UIScreen.main.nativeScale
 
-    private lazy var renderer: Renderable =  {
-
-        let suggestedRenderer = Canvas.suggestedRenderer()
-        suggestedRenderer.view.frame = self.bounds.integral
-        self.addSubview(suggestedRenderer.view)
-
-        return suggestedRenderer
-
-    }()
+    private var renderer: Renderable?
 
     open var image: CIImage? {
         didSet {
             guard oldValue != image else { return }
             setNeedsLayout()
+        }
+    }
+
+    open var pixelBuffer: CVPixelBuffer? {
+        didSet {
+            guard oldValue != pixelBuffer else { return }
+            guard let pixelBuffer = pixelBuffer else { return }
+            if renderer == nil {
+                DispatchQueue.main.async(execute: {
+                    let suggestedRenderer = Canvas.suggestedRenderer()
+                    suggestedRenderer.view.frame = self.bounds.integral
+                    self.renderer = suggestedRenderer
+                    self.addSubview(suggestedRenderer.view)
+                    self.renderer?.renderPixelBuffer(pixelBuffer)
+                })
+            } else {
+                renderer?.renderPixelBuffer(pixelBuffer)
+            }
         }
     }
 
@@ -47,13 +56,13 @@ open class Canvas: UIView {
 
     private class func suggestedRenderer() -> Renderable {
 
-        #if !(arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
-        if let defaultDevice = MTLCreateSystemDefaultDevice(), let metalRenderer = MetalRenderer(device: defaultDevice) {
-            return metalRenderer
-        }
-        #endif
+//        #if !(arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
+//        if let defaultDevice = MTLCreateSystemDefaultDevice(), let metalRenderer = MetalRenderer(device: defaultDevice) {
+//            return metalRenderer
+//        }
+//        #endif
 
-        return GLKRenderer(GLContext: EAGLContext(api: .openGLES2)!)
+        return OpenGLView()//GLKRenderer(GLContext: EAGLContext(api: .openGLES2)!)
     }
 
     private func makeRectWithAspectRatioFillRect(_ aspectRatio: CGSize, boundingRect: CGRect) -> CGRect {
@@ -76,37 +85,45 @@ open class Canvas: UIView {
     override open func layoutSubviews() {
         super.layoutSubviews()
 
-        guard let unwrappedImage = image else { return }
+        guard let renderer = renderer else { return }
 
-        let imageSize = unwrappedImage.extent.size
+        if let unwrappedImage = image {
+            let imageSize = unwrappedImage.extent.size
 
-        if (imageSize.equalTo(CGSize.zero) || bounds.size.equalTo(CGSize.zero)) {
-            return
-        }
+            if (imageSize.equalTo(CGSize.zero) || bounds.size.equalTo(CGSize.zero)) {
+                return
+            }
 
-        switch canvasContentMode {
+            switch canvasContentMode {
 
-        case .scaleAspectFill:
-            renderer.view.frame = makeRectWithAspectRatioFillRect(imageSize, boundingRect: bounds)
+            case .scaleAspectFill:
+                renderer.view.frame = makeRectWithAspectRatioFillRect(imageSize, boundingRect: bounds)
 
-        case .scaleAspectFit:
-            renderer.view.frame = makeRectWithAspectRatioInsideRect(imageSize, boundingRect: bounds)
+            case .scaleAspectFit:
+                renderer.view.frame = makeRectWithAspectRatioInsideRect(imageSize, boundingRect: bounds)
 
-        case .center:
-            let viewSize = CGSize(width: imageSize.width/screenScaleFactor, height: imageSize.height/screenScaleFactor)
-            renderer.view.frame = CGRect(x: (bounds.width - viewSize.width)/2, y: (bounds.height - viewSize.height)/2, width: viewSize.width, height: viewSize.height).integral
+            case .center:
+                let viewSize = CGSize(width: imageSize.width/screenScaleFactor, height: imageSize.height/screenScaleFactor)
+                renderer.view.frame = CGRect(x: (bounds.width - viewSize.width)/2, y: (bounds.height - viewSize.height)/2, width: viewSize.width, height: viewSize.height).integral
 
-        case .`default`:
+            case .`default`:
+                renderer.view.frame = bounds.integral
+            }
+
+            updateContent()
+        } else if renderer.view.frame != bounds.integral {
             renderer.view.frame = bounds.integral
+            updateContent()
         }
-
-        updateContent()
     }
 
     private func updateContent() {
-        guard let unwrappedImage = image else { return }
-        let scaledImage = scaleImageForDisplay(unwrappedImage)
-        renderer.renderImage(scaledImage)
+        if let unwrappedImage = image {
+            let scaledImage = scaleImageForDisplay(unwrappedImage)
+            renderer?.renderImage(scaledImage)
+        } else if let pixelBuffer = pixelBuffer {
+            renderer?.renderPixelBuffer(pixelBuffer)
+        }
     }
 
     private func scaleImageForDisplay(_ image: CIImage) -> CIImage {
