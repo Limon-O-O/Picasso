@@ -6,7 +6,7 @@
 //  Copyright © 2019 Picasso. All rights reserved.
 //
 
-#import "FUOpenGLView.h"
+#import "PicassoOpenGLView.h"
 #import <CoreVideo/CoreVideo.h>
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
@@ -14,7 +14,7 @@
 #define STRINGIZE2(x)    STRINGIZE(x)
 #define SHADER_STRING(text) @ STRINGIZE2(text)
 
-NSString *const FUYUVToRGBAFragmentShaderString = SHADER_STRING
+NSString *const PicassoYUVToRGBAFragmentShaderString = SHADER_STRING
 (
  varying highp vec2 textureCoordinate;
 
@@ -35,7 +35,7 @@ NSString *const FUYUVToRGBAFragmentShaderString = SHADER_STRING
  }
  );
 
-NSString *const FURGBAFragmentShaderString = SHADER_STRING
+NSString *const PicassoRGBAFragmentShaderString = SHADER_STRING
 (
  uniform sampler2D inputImageTexture;
 
@@ -47,7 +47,7 @@ NSString *const FURGBAFragmentShaderString = SHADER_STRING
 }
  );
 
-NSString *const FUVertexShaderString = SHADER_STRING
+NSString *const PicassoVertexShaderString = SHADER_STRING
 (
  attribute vec4 position;
  attribute vec4 inputTextureCoordinate;
@@ -61,7 +61,7 @@ NSString *const FUVertexShaderString = SHADER_STRING
  }
  );
 
-NSString *const FUPointsFrgShaderString = SHADER_STRING
+NSString *const PicassoPointsFrgShaderString = SHADER_STRING
 (
  precision mediump float;
 
@@ -74,7 +74,7 @@ NSString *const FUPointsFrgShaderString = SHADER_STRING
 
  );
 
-NSString *const FUPointsVtxShaderString = SHADER_STRING
+NSString *const PicassoPointsVtxShaderString = SHADER_STRING
 (
  attribute vec4 position;
 
@@ -108,7 +108,7 @@ enum
     fuyuvConversionTextureCoordinateAttribute
 };
 
-@interface FUOpenGLView()
+@interface PicassoOpenGLView()
 
 @property (nonatomic, strong) EAGLContext *glContext;
 
@@ -119,7 +119,7 @@ enum
 
 @end
 
-@implementation FUOpenGLView
+@implementation PicassoOpenGLView
 {
     GLuint rgbaProgram;
     GLuint rgbaToYuvProgram;
@@ -246,16 +246,14 @@ enum
 
 - (void)dealloc
 {
-    __weak __typeof(self) wSelf = self;
     dispatch_sync(_contextQueue, ^{
-        __strong __typeof(self) sSelf = wSelf;
-        [sSelf destroyDisplayFramebuffer];
-        [sSelf destoryProgram];
+        [self destroyDisplayFramebuffer];
+        [self destoryProgram];
 
-        if(sSelf->videoTextureCache) {
-            CVOpenGLESTextureCacheFlush(sSelf->videoTextureCache, 0);
-            CFRelease(sSelf->videoTextureCache);
-            sSelf->videoTextureCache = NULL;
+        if(self->videoTextureCache) {
+            CVOpenGLESTextureCacheFlush(self->videoTextureCache, 0);
+            CFRelease(self->videoTextureCache);
+            self->videoTextureCache = NULL;
         }
     });
 }
@@ -630,13 +628,13 @@ enum
     }
 
     // Create and compile the vertex shader.
-    if (![self compileShader:&vertShader type:GL_VERTEX_SHADER string:FUVertexShaderString]) {
+    if (![self compileShader:&vertShader type:GL_VERTEX_SHADER string:PicassoVertexShaderString]) {
         NSLog(@"Failed to compile vertex shader");
         return NO;
     }
 
     // Create and compile fragment shader.
-    if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER string:FURGBAFragmentShaderString]) {
+    if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER string:PicassoRGBAFragmentShaderString]) {
         NSLog(@"Failed to compile fragment shader");
         return NO;
     }
@@ -696,13 +694,13 @@ enum
     }
 
     // Create and compile the vertex shader.
-    if (![self compileShader:&vertShader type:GL_VERTEX_SHADER string:FUVertexShaderString]) {
+    if (![self compileShader:&vertShader type:GL_VERTEX_SHADER string:PicassoVertexShaderString]) {
         NSLog(@"Failed to compile vertex shader");
         return NO;
     }
 
     // Create and compile fragment shader.
-    if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER string:FUYUVToRGBAFragmentShaderString]) {
+    if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER string:PicassoYUVToRGBAFragmentShaderString]) {
         NSLog(@"Failed to compile fragment shader");
         return NO;
     }
@@ -765,13 +763,13 @@ enum
     pointProgram = glCreateProgram();
 
     // Create and compile the vertex shader.
-    if (![self compileShader:&vertShader type:GL_VERTEX_SHADER string:FUPointsVtxShaderString]) {
+    if (![self compileShader:&vertShader type:GL_VERTEX_SHADER string:PicassoPointsVtxShaderString]) {
         NSLog(@"Failed to compile vertex shader");
         return NO;
     }
 
     // Create and compile fragment shader.
-    if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER string:FUPointsFrgShaderString]) {
+    if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER string:PicassoPointsFrgShaderString]) {
         NSLog(@"Failed to compile fragment shader");
         return NO;
     }

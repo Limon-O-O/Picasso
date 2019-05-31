@@ -13,7 +13,7 @@ class OpenGLView: Renderable {
     var view: UIView
 
     init() {
-        view = FUOpenGLView(frame: UIScreen.main.bounds)
+        view = PicassoOpenGLView(frame: UIScreen.main.bounds)
         view.contentMode = UIView.ContentMode.scaleAspectFit
     }
 
@@ -22,6 +22,6 @@ class OpenGLView: Renderable {
     }
 
     func renderPixelBuffer(_ pixelBuffer: CVPixelBuffer) {
-        (self.view as? FUOpenGLView)?.display(pixelBuffer)
+        (self.view as? PicassoOpenGLView)?.display(pixelBuffer)
     }
 }

@@ -22,6 +22,9 @@ open class Canvas: UIView {
 
     private var renderer: Renderable?
 
+    /// 由于 pixelBuffer 速度较快，需要，确保 renderer 只添加一次到 super view
+    private var didGeneratedRenderer: Bool = false
+
     open var image: CIImage? {
         didSet {
             guard oldValue != image else { return }
@@ -33,14 +36,16 @@ open class Canvas: UIView {
         didSet {
             guard oldValue != pixelBuffer else { return }
             guard let pixelBuffer = pixelBuffer else { return }
-            if renderer == nil {
-                DispatchQueue.main.async(execute: {
+            if renderer == nil, !didGeneratedRenderer {
+                // 由于 pixelBuffer 速度较快，需要确保 renderer 只添加一次到 super view
+                didGeneratedRenderer = true
+                DispatchQueue.main.async() {
                     let suggestedRenderer = Canvas.suggestedRenderer()
                     suggestedRenderer.view.frame = self.bounds.integral
                     self.renderer = suggestedRenderer
                     self.addSubview(suggestedRenderer.view)
                     self.renderer?.renderPixelBuffer(pixelBuffer)
-                })
+                }
             } else {
                 renderer?.renderPixelBuffer(pixelBuffer)
             }

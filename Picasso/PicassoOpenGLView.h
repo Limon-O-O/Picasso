@@ -8,7 +8,7 @@
 
 #import <GLKit/GLKit.h>
 
-@interface FUOpenGLView : UIView
+@interface PicassoOpenGLView : UIView
 
 - (void)displayPixelBuffer:(CVPixelBufferRef)pixelBuffer;
 
