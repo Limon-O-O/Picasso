@@ -344,39 +344,37 @@ enum
 
     if (!self.renderEnabled) return;
 
-    __weak __typeof(self) wSelf = self;
     CVPixelBufferRetain(pixelBuffer);
     dispatch_sync(_contextQueue, ^{
-        __strong __typeof(self) sSelf = wSelf;
-        sSelf->frameWidth = (int)CVPixelBufferGetWidth(pixelBuffer);
-        sSelf->frameHeight = (int)CVPixelBufferGetHeight(pixelBuffer);
+        self->frameWidth = (int)CVPixelBufferGetWidth(pixelBuffer);
+        self->frameHeight = (int)CVPixelBufferGetHeight(pixelBuffer);
 
-        if ([EAGLContext currentContext] != sSelf.glContext) {
-            if (![EAGLContext setCurrentContext:sSelf.glContext]) {
+        if ([EAGLContext currentContext] != self.glContext) {
+            if (![EAGLContext setCurrentContext:self.glContext]) {
                 NSLog(@"fail to setCurrentContext");
             }
         }
 
-        glBindFramebuffer(GL_FRAMEBUFFER, sSelf->frameBufferHandle);
+        glBindFramebuffer(GL_FRAMEBUFFER, self->frameBufferHandle);
 
-        glViewport(0, 0, (GLint)sSelf->backingWidth, (GLint)sSelf->backingHeight);
+        glViewport(0, 0, (GLint)self->backingWidth, (GLint)self->backingHeight);
 
         OSType type = CVPixelBufferGetPixelFormatType(pixelBuffer);
         if (type == kCVPixelFormatType_32BGRA)
         {
-            [sSelf prepareToDrawBGRAPixelBuffer:pixelBuffer];
+            [self prepareToDrawBGRAPixelBuffer:pixelBuffer];
 
         }else{
-            [sSelf prepareToDrawYUVPixelBuffer:pixelBuffer];
+            [self prepareToDrawYUVPixelBuffer:pixelBuffer];
         }
 
         CVPixelBufferRelease(pixelBuffer);
 
         if (landmarks) {
-            [sSelf prepareToDrawLandmarks:landmarks count:count];
+            [self prepareToDrawLandmarks:landmarks count:count];
         }
 
-        [sSelf presentFramebuffer];
+        [self presentFramebuffer];
     });
 
 }
