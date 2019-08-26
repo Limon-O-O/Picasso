@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name        = "Picasso"
-  s.version     = "0.4.5"
+  s.version     = "0.4.6"
   s.summary     = "A view for rendering CIImage with Metal/OpenGL"
 
   s.description = <<-DESC
