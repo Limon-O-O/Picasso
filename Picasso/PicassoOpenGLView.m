@@ -1,9 +1,9 @@
 //
 //  FUOpenGLView.m
-//  Picasso
+//  FULiveDemo
 //
-//  Created by Limon F. on 11/4/2019.
-//  Copyright © 2019 Picasso. All rights reserved.
+//  Created by 刘洋 on 2017/8/15.
+//  Copyright © 2017年 刘洋. All rights reserved.
 //
 
 #import "PicassoOpenGLView.h"
@@ -114,9 +114,6 @@ enum
 
 @property(nonatomic) dispatch_queue_t contextQueue;
 
-/// 主要为了在 主线程 调用 createDisplayFramebuffer
-@property (nonatomic, assign) BOOL renderEnabled;
-
 @end
 
 @implementation PicassoOpenGLView
@@ -219,28 +216,11 @@ enum
 
         boundsSizeAtFrameBufferEpoch = self.bounds.size;
 
-        if (!frameBufferHandle)
-        {
-            self.renderEnabled = FALSE;
+        dispatch_async(_contextQueue, ^{
             [self destroyDisplayFramebuffer];
             [self createDisplayFramebuffer];
             [self updateVertices];
-            self.renderEnabled = TRUE;
-        } else {
-            __weak __typeof(self) wSelf = self;
-            dispatch_async(_contextQueue, ^{
-                __strong __typeof(self) sSelf = wSelf;
-                sSelf.renderEnabled = FALSE;
-                __weak __typeof(self) wwSelf = sSelf;
-                dispatch_async(dispatch_get_main_queue(), ^(){
-                    __strong __typeof(self) ssSelf = wwSelf;
-                    [ssSelf destroyDisplayFramebuffer];
-                    [ssSelf createDisplayFramebuffer];
-                    [ssSelf updateVertices];
-                    ssSelf.renderEnabled = TRUE;
-                });
-            });
-        }
+        });
     }
 }
 
@@ -260,7 +240,6 @@ enum
 
 - (void)createDisplayFramebuffer
 {
-
     [EAGLContext setCurrentContext:self.glContext];
 
     glDisable(GL_DEPTH_TEST);
@@ -306,6 +285,18 @@ enum
     }
 }
 
+- (void)setDisplayFramebuffer;
+{
+    if (!frameBufferHandle)
+    {
+        [self createDisplayFramebuffer];
+    }
+
+    glBindFramebuffer(GL_FRAMEBUFFER, frameBufferHandle);
+
+    glViewport(0, 0, (GLint)backingWidth, (GLint)backingHeight);
+}
+
 - (void)destoryProgram{
     if (rgbaProgram) {
         glDeleteProgram(rgbaProgram);
@@ -340,12 +331,9 @@ enum
 {
     if (pixelBuffer == NULL) return;
 
-    if (!frameBufferHandle) return;
-
-    if (!self.renderEnabled) return;
-
     CVPixelBufferRetain(pixelBuffer);
     dispatch_sync(_contextQueue, ^{
+
         self->frameWidth = (int)CVPixelBufferGetWidth(pixelBuffer);
         self->frameHeight = (int)CVPixelBufferGetHeight(pixelBuffer);
 
@@ -355,9 +343,7 @@ enum
             }
         }
 
-        glBindFramebuffer(GL_FRAMEBUFFER, self->frameBufferHandle);
-
-        glViewport(0, 0, (GLint)self->backingWidth, (GLint)self->backingHeight);
+        [self setDisplayFramebuffer];
 
         OSType type = CVPixelBufferGetPixelFormatType(pixelBuffer);
         if (type == kCVPixelFormatType_32BGRA)
